@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="restaurant">
     <slot />
   </div>
 </template>
@@ -20,13 +20,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.card {
+@import "@/assets/style/variables.scss";
+
+.restaurant {
   min-width: 200px;
-  width: calc(100% / 3 - (11px + 16px) * 2);
+  width: calc(100% / 3 - (#{$margin} + #{$padding}) * 2);
   height: 100px;
-  margin: 11px;
-  padding: 16px;
-  background: beige;
+  margin: $margin;
+  padding: $padding;
+  background: $background-color;
   border-radius: 8px;
   transition: 0.5s;
 
