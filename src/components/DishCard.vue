@@ -14,13 +14,13 @@
           :data="{
             size: 'xs',
           }"
-          @click="add(dish)"
+          @click="addQuantity(dish)"
           >В корзину</EButton
         >
         <div v-else class="dish__footer-btn">
-          <BootstrapIcon icon="plus-square" />
-          <div>1</div>
-          <BootstrapIcon icon="dash-square" />
+          <BootstrapIcon icon="plus-square" @click="addQuantity(dish)" />
+          <div>{{ dish.quantityInCart }}</div>
+          <BootstrapIcon icon="dash-square" @click="reduceQuantity(dish)" />
         </div>
       </div>
     </div>
@@ -37,11 +37,11 @@ import BootstrapIcon from "@dvuckovic/vue3-bootstrap-icons";
 export default defineComponent({
   name: "DishCard",
   components: { BootstrapIcon },
-  setup(props) {
+  setup() {
     const { isVisible, toggleVisible } = useShowContent();
-    const { addQuantity } = useChangeQuantity(props);
+    const { addQuantity, reduceQuantity } = useChangeQuantity();
 
-    return { isVisible, toggleVisible, addQuantity };
+    return { isVisible, toggleVisible, addQuantity, reduceQuantity };
   },
   props: {
     dish: {
