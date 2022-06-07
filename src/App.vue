@@ -1,8 +1,5 @@
 <template>
-  <nav>
-    <router-link to="/">Restaurants</router-link> |
-    <router-link to="/dishes">Dishes</router-link>
-  </nav>
+  <HeaderComponent />
   <router-view />
 </template>
 
@@ -14,17 +11,10 @@
   text-align: center;
   color: #2c3e50;
 }
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 </style>
+<script>
+import HeaderComponent from "@/components/HeaderComponent";
+export default {
+  components: { HeaderComponent },
+};
+</script>
