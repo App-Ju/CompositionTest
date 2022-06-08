@@ -1,7 +1,7 @@
 <template>
   <div class="order-wrapper">
-    <DishesView />
-    <ShoppingCartView class="cart" />
+    <DishesView class="order-wrapper__dishes" />
+    <ShoppingCartView class="order-wrapper__cart" />
   </div>
 </template>
 
@@ -33,17 +33,14 @@ export default defineComponent({
 <style lang="scss" scoped>
 .order-wrapper {
   display: flex;
-}
+  background-color: #b4bcc4;
 
-//.dishes {
-//  display: flex;
-//  flex-wrap: wrap;
-//  width: 80%;
-//}
+  &__dishes {
+    width: 80%;
+  }
 
-.cart {
-  width: 20%;
-  height: 100%;
-  background-color: #7d6f86;
+  &__cart {
+    width: 20%;
+  }
 }
 </style>
