@@ -9,18 +9,11 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "CardComponent",
-  components: {},
-  props: {},
-  data() {
-    return {};
-  },
-  computed: {},
-  methods: {},
 });
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/style/variables.scss";
+@import "../assets/style/variables.scss";
 
 .restaurant {
   min-width: 200px;

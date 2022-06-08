@@ -1,7 +1,7 @@
 <template>
   <nav class="nav">
     <router-link to="/">Все Рестораны</router-link>
-    <router-link to="/shopping-cart">
+    <router-link to="/order">
       <BootstrapIcon id="nav-cart" icon="cart4" />
     </router-link>
   </nav>
@@ -14,12 +14,6 @@ import BootstrapIcon from "@dvuckovic/vue3-bootstrap-icons";
 export default defineComponent({
   name: "HeaderComponent",
   components: { BootstrapIcon },
-  props: {},
-  data() {
-    return {};
-  },
-  computed: {},
-  methods: {},
 });
 </script>
 

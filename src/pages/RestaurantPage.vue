@@ -15,7 +15,6 @@ import { defineComponent } from "vue";
 import { useRestaurantsStore } from "@/store/restaurants";
 import { useCurrentDishes } from "@/composition/currentDishes";
 import RestaurantCard from "@/components/RestaurantCard.vue";
-// import { IRestaurant } from "@/typescript/interfaces";
 
 export default defineComponent({
   name: "RestaurantView",
@@ -29,7 +28,6 @@ export default defineComponent({
       showDishes,
     };
   },
-  methods: {},
 });
 </script>
 
