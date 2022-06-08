@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import RestaurantView from "../views/RestaurantView.vue";
-import DishesView from "../views/DishesView.vue";
-import ShoppingCartView from "../views/ShoppingCartView.vue";
+import RestaurantView from "../pages/RestaurantPage.vue";
+import OrderPage from "../pages/OrderPage.vue";
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
@@ -9,14 +9,9 @@ const routes: Array<RouteRecordRaw> = [
     component: RestaurantView,
   },
   {
-    path: "/dishes",
-    name: "dishes",
-    component: DishesView,
-  },
-  {
-    path: "/shopping-cart",
-    name: "shopping-cart",
-    component: ShoppingCartView,
+    path: "/order/:id",
+    name: "order",
+    component: OrderPage,
   },
 ];
 

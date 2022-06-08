@@ -8,7 +8,7 @@ export function useCurrentDishes() {
 
   const showDishes = (restaurant: IRestaurant) => {
     restaurantsStore.addCurrentDishes(restaurant.id);
-    router.push(`/dishes`);
+    router.push(`/order/${restaurant.id}`);
   };
 
   return { showDishes };
