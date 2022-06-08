@@ -2,6 +2,7 @@ export interface IRestaurant {
   id: number;
   name: string;
   dishes: [];
+  photoName: string;
 }
 
 export interface IDish {
@@ -10,4 +11,5 @@ export interface IDish {
   price: number;
   description: string;
   quantityInCart: number;
+  photoName: string;
 }
