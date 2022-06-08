@@ -102,7 +102,7 @@ export default defineComponent({
 .dishes {
   display: flex;
   flex-wrap: wrap;
-  width: 80%;
+  align-content: flex-start;
 }
 
 .dish {

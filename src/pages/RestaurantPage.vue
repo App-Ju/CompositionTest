@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useRestaurantsStore } from "@/store/restaurants";
-import { useCurrentDishes } from "@/composition/currentDishes";
+import { useCurrentRestaurant } from "@/composition/currentRestaurant";
 import RestaurantCard from "@/components/RestaurantCard.vue";
 
 export default defineComponent({
@@ -21,7 +21,7 @@ export default defineComponent({
   components: { RestaurantCard },
   setup() {
     const restaurantsStore = useRestaurantsStore();
-    const { showDishes } = useCurrentDishes();
+    const { showDishes } = useCurrentRestaurant();
 
     return {
       restaurantsStore,
@@ -34,7 +34,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .restaurants {
   display: flex;
+  align-content: flex-start;
   flex-wrap: wrap;
-  margin: 0 auto;
+  height: calc(100vh - 67px);
+  margin-top: 10px;
 }
 </style>
