@@ -1,6 +1,5 @@
 <template>
-  <div>
-    {{ dishes }}
+  <div class="cart-wrapper">
     <DishCard
       class="dish"
       v-for="dish in dishes"
@@ -14,31 +13,26 @@
       <template v-slot:name>
         <div class="dish__name">{{ dish.name }}</div>
       </template>
-      <template v-slot:description>
-        <div class="dish__description">
-          {{ dish.description }}
-        </div>
-      </template>
       <template v-slot:price>
-        <div class="dish__price">Цена: {{ dish.price }}₽</div>
+        <div class="dish__price">{{ dish.price * dish.quantityInCart }}₽</div>
       </template>
       <template v-slot:buttons>
-        <EButton
-          v-if="!dish.quantityInCart"
-          id="cart-button"
-          :data="{
-            size: 'xs',
-          }"
-          @click="addQuantity(dish)"
-          >В корзину</EButton
-        >
-        <div v-else class="dish__footer-btn">
+        <div class="dish__footer-btn">
           <BootstrapIcon icon="plus-square" @click="addQuantity(dish)" />
           <div>{{ dish.quantityInCart }}</div>
           <BootstrapIcon icon="dash-square" @click="reduceQuantity(dish)" />
         </div>
       </template>
     </DishCard>
+    <div class="submit-button">
+      <EButton
+        id="cart-button"
+        :data="{
+          size: 'xs',
+        }"
+        ><span>Заказзать</span> <span>{{ totalCost }} ₽</span></EButton
+      >
+    </div>
   </div>
 </template>
 
@@ -54,35 +48,26 @@ export default defineComponent({
   components: { DishCard, BootstrapIcon },
   props: {},
   setup() {
-    const { dishes } = useSelectedDishes();
+    const { dishes, totalCost, totalCount } = useSelectedDishes();
     const { addQuantity, reduceQuantity } = useChangeQuantity();
 
-    return { dishes, addQuantity, reduceQuantity };
+    return { dishes, totalCost, totalCount, addQuantity, reduceQuantity };
   },
   data() {
     return {
       bodyStyle: {
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        display: "inline-flex",
+        display: "flex",
         flexWrap: "wrap",
-        justifyContent: "space-between",
-        alignItems: "end",
+        justifyContent: "center",
+        alignItems: "center",
         width: "90%",
-        padding: "5%",
-        height: "max-content",
-        zIndex: "1000",
       },
       dishStyle: {
         position: "relative",
-        minWidth: "160px",
-        width: "calc(100% / 4 - (11px + 16px) * 2)",
-        height: "220px",
-        margin: "11px",
-        padding: "16px",
+        width: "100%",
+        height: "70px",
+        marginTop: "1px",
         background: "#eaebee",
-        borderRadius: "8px",
       },
     };
   },
@@ -94,40 +79,37 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "../assets/style/variables";
 
+.cart-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: calc(100vh - 57px);
+  height: max-content;
+}
 .dish {
+  width: 100%;
   &__img {
     position: absolute;
-    left: 0;
-    top: 10px;
-    width: 100%;
-    height: 60%;
+    left: 10px;
+    top: 7px;
+    width: 30px;
+    height: 30px;
     object-fit: cover;
-    z-index: 0;
   }
 
   &__name {
-    width: 100%;
+    width: 55%;
+    height: 36px;
     padding-top: 8px;
-    text-align: start;
-    background: $background-color;
-    z-index: 1000;
-  }
-
-  &__description {
-    width: 100%;
-    padding-top: 8px;
+    margin-left: 40px;
     font-size: 12px;
     text-align: start;
-    background: $background-color;
-    z-index: 1000;
   }
 
   &__price {
-    width: 50%;
-    text-align: start;
+    width: 20%;
+    text-align: end;
     font-size: 14px;
-    padding-bottom: 4px;
-    margin-top: 15%;
   }
 
   &__footer-btn {
@@ -139,7 +121,20 @@ export default defineComponent({
   }
 }
 
+.submit-button {
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  flex-grow: 1;
+  margin-top: 1px;
+  padding-bottom: 10px;
+  background-color: #eaebee;
+}
+
 #cart-button {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
   background-color: #57b750;
 
   &:active {
