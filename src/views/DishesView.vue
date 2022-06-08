@@ -70,18 +70,17 @@ export default defineComponent({
           flexWrap: "wrap",
           justifyContent: "space-between",
           alignItems: "end",
-          width: "90%",
-          padding: "5%",
+          width: "100%",
+          paddingBottom: "5%",
           height: "max-content",
           zIndex: "1000",
         },
         dish: {
           position: "relative",
-          minWidth: "160px",
+          minWidth: "176px",
           width: "calc(100% / 4 - (11px + 16px) * 2)",
-          height: "220px",
+          height: "236px",
           margin: "11px",
-          padding: "16px",
           background: "#eaebee",
           borderRadius: "8px",
         },
@@ -114,16 +113,16 @@ export default defineComponent({
 
 .dish {
   &__name {
-    width: 100%;
-    padding-top: 8px;
+    width: 90%;
+    padding: 5% 5% 0 5%;
     text-align: start;
     background: $background-color;
     z-index: 1000;
   }
 
   &__description {
-    width: 100%;
-    padding-top: 8px;
+    width: 90%;
+    padding: 5%;
     font-size: 12px;
     text-align: start;
     background: $background-color;
@@ -131,10 +130,11 @@ export default defineComponent({
   }
 
   &__price {
-    width: 50%;
+    width: 45%;
     text-align: start;
     font-size: 14px;
     padding-bottom: 4px;
+    padding-left: 5%;
     margin-top: 15%;
   }
 
@@ -149,6 +149,7 @@ export default defineComponent({
 
 #cart-button {
   background-color: #57b750;
+  margin-right: 5%;
 
   &:active {
     background-color: #7ada73;
