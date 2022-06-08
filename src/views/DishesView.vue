@@ -4,12 +4,9 @@
       class="dish"
       v-for="dish in restaurantsStore.currentRestaurantDishes"
       :key="dish.id"
-      :body-style="bodyStyle"
-      :dish-style="dishStyle"
+      :styles="styles"
+      :photo-name="dish.photoName"
     >
-      <template v-slot:img>
-        <img src="../assets/logo.png" alt="#" class="dish__img" />
-      </template>
       <template v-slot:name>
         <div class="dish__name">{{ dish.name }}</div>
       </template>
@@ -64,28 +61,41 @@ export default defineComponent({
   props: {},
   data() {
     return {
-      bodyStyle: {
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        display: "inline-flex",
-        flexWrap: "wrap",
-        justifyContent: "space-between",
-        alignItems: "end",
-        width: "90%",
-        padding: "5%",
-        height: "max-content",
-        zIndex: "1000",
-      },
-      dishStyle: {
-        position: "relative",
-        minWidth: "160px",
-        width: "calc(100% / 4 - (11px + 16px) * 2)",
-        height: "220px",
-        margin: "11px",
-        padding: "16px",
-        background: "#eaebee",
-        borderRadius: "8px",
+      styles: {
+        body: {
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          display: "inline-flex",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
+          alignItems: "end",
+          width: "90%",
+          padding: "5%",
+          height: "max-content",
+          zIndex: "1000",
+        },
+        dish: {
+          position: "relative",
+          minWidth: "160px",
+          width: "calc(100% / 4 - (11px + 16px) * 2)",
+          height: "220px",
+          margin: "11px",
+          padding: "16px",
+          background: "#eaebee",
+          borderRadius: "8px",
+        },
+        img: {
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: "100%",
+          height: "60%",
+          objectFit: "cover",
+          borderTopLeftRadius: "8px",
+          borderTopRightRadius: "8px",
+          zIndex: 0,
+        },
       },
     };
   },
@@ -103,18 +113,6 @@ export default defineComponent({
 }
 
 .dish {
-  &__img {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 60%;
-    object-fit: cover;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
-    z-index: 0;
-  }
-
   &__name {
     width: 100%;
     padding-top: 8px;

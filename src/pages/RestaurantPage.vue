@@ -4,8 +4,9 @@
       v-for="restaurant in restaurantsStore.restaurants"
       :key="restaurant.id"
       @click="showDishes(restaurant)"
+      :photo-name="restaurant.photoName"
     >
-      {{ restaurant.name }}
+      <div class="restaurants__name">{{ restaurant.name }}</div>
     </RestaurantCard>
   </div>
 </template>
@@ -38,5 +39,11 @@ export default defineComponent({
   flex-wrap: wrap;
   height: calc(100vh - 67px);
   margin-top: 10px;
+
+  &__name {
+    background: rgba(180, 188, 196, 0.66);
+    padding: 3px;
+    width: max-content;
+  }
 }
 </style>

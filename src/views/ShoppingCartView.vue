@@ -4,12 +4,9 @@
       class="dish"
       v-for="dish in dishes"
       :key="dish.id"
-      :body-style="bodyStyle"
-      :dish-style="dishStyle"
+      :styles="styles"
+      :photo-name="dish.photoName"
     >
-      <template v-slot:img>
-        <img src="../assets/logo.png" alt="#" class="dish__img" />
-      </template>
       <template v-slot:name>
         <div class="dish__name">{{ dish.name }}</div>
       </template>
@@ -55,19 +52,29 @@ export default defineComponent({
   },
   data() {
     return {
-      bodyStyle: {
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "90%",
-      },
-      dishStyle: {
-        position: "relative",
-        width: "100%",
-        height: "70px",
-        marginTop: "1px",
-        background: "#eaebee",
+      styles: {
+        body: {
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "90%",
+        },
+        dish: {
+          position: "relative",
+          width: "100%",
+          height: "70px",
+          marginTop: "1px",
+          background: "#eaebee",
+        },
+        img: {
+          position: "absolute",
+          left: "10px",
+          top: "7px",
+          width: "30px",
+          height: "30px",
+          objectFit: "cover",
+        },
       },
     };
   },
@@ -88,14 +95,6 @@ export default defineComponent({
 }
 .dish {
   width: 100%;
-  &__img {
-    position: absolute;
-    left: 10px;
-    top: 7px;
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
-  }
 
   &__name {
     width: 55%;
