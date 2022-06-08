@@ -95,24 +95,23 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "../assets/style/variables.scss";
 
-.dishes-wrapper {
-  display: flex;
-}
-
 .dishes {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
+  padding: 11px;
 }
 
 .dish {
   &__img {
     position: absolute;
     left: 0;
-    top: 10px;
+    top: 0;
     width: 100%;
     height: 60%;
     object-fit: cover;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
     z-index: 0;
   }
 

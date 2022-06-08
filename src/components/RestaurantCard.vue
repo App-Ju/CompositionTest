@@ -22,7 +22,7 @@ export default defineComponent({
   margin: $margin;
   padding: $padding;
   background: $background-color;
-  border-radius: 8px;
+  border-radius: $border-radius;
   transition: 0.5s;
 
   &:hover {
