@@ -1,6 +1,6 @@
 <template>
   <div :style="styles.dish" @mouseenter="onVisible" @mouseleave="offVisible">
-    <img :src="requestPhoto" alt="#" :style="styles.img" />
+    <img :src="photo" alt="#" :style="styles.img" />
     <div :style="styles.body">
       <slot name="name" />
       <div v-show="isVisible" style="z-index: 1000">
@@ -12,36 +12,30 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useShowContent } from "@/composition/showContent";
-import { useGetPhoto } from "@/composition/getPhoto";
-
-export default defineComponent({
-  name: "DishCard",
-  setup(props) {
-    const { isVisible, onVisible, offVisible } = useShowContent();
-    const { requestPhoto } = useGetPhoto(props.photoName!);
-
-    return { isVisible, onVisible, offVisible, requestPhoto };
+<script setup>
+const props = defineProps({
+  styles: {
+    type: Object,
+    require: true,
   },
-  props: {
-    styles: {
-      type: Object,
-      require: true,
-    },
-    photoName: {
-      type: String,
-      require: true,
-    },
-    bodyStyle: {
-      type: Object,
-      require: true,
-    },
-    dishStyle: {
-      type: Object,
-      require: true,
-    },
+  photoName: {
+    type: String,
+    require: true,
+  },
+  bodyStyle: {
+    type: Object,
+    require: true,
+  },
+  dishStyle: {
+    type: Object,
+    require: true,
   },
 });
+
+import { getPhoto } from "@/api/unsplashAPI";
+const requestPhoto = await getPhoto(props.photoName);
+const photo = requestPhoto.data.results[0].urls.regular;
+
+import { useShowContent } from "@/composition/showContent";
+const { isVisible, onVisible, offVisible } = useShowContent();
 </script>

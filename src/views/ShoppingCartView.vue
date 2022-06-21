@@ -1,26 +1,29 @@
 <template>
   <div class="cart-wrapper">
-    <DishCard
-      class="dish"
-      v-for="dish in dishes"
-      :key="dish.id"
-      :styles="styles"
-      :photo-name="dish.photoName"
-    >
-      <template v-slot:name>
-        <div class="dish__name">{{ dish.name }}</div>
-      </template>
-      <template v-slot:price>
-        <div class="dish__price">{{ dish.price * dish.quantityInCart }}₽</div>
-      </template>
-      <template v-slot:buttons>
-        <div class="dish__footer-btn">
-          <BootstrapIcon icon="plus-square" @click="addQuantity(dish)" />
-          <div>{{ dish.quantityInCart }}</div>
-          <BootstrapIcon icon="dash-square" @click="reduceQuantity(dish)" />
-        </div>
-      </template>
-    </DishCard>
+    <Suspense>
+      <DishCard
+        class="dish"
+        v-for="dish in dishes"
+        :key="dish.id"
+        :styles="styles"
+        :photo-name="dish.photoName"
+      >
+        <template v-slot:name>
+          <div class="dish__name">{{ dish.name }}</div>
+        </template>
+        <template v-slot:price>
+          <div class="dish__price">{{ dish.price * dish.quantityInCart }}₽</div>
+        </template>
+        <template v-slot:buttons>
+          <div class="dish__footer-btn">
+            <BootstrapIcon icon="plus-square" @click="addQuantity(dish)" />
+            <div>{{ dish.quantityInCart }}</div>
+            <BootstrapIcon icon="dash-square" @click="reduceQuantity(dish)" />
+          </div>
+        </template>
+      </DishCard>
+      <template #fallback> Loading... </template>
+    </Suspense>
     <div class="submit-button">
       <EButton
         id="cart-button"
@@ -33,54 +36,44 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useSelectedDishes } from "@/composition/selectedDishes";
-import { useChangeQuantity } from "@/composition/changeQuantity";
+<script setup>
 import BootstrapIcon from "@dvuckovic/vue3-bootstrap-icons";
-import DishCard from "@/components/DishCard.vue";
 
-export default defineComponent({
-  name: "ShoppingCartView",
-  components: { DishCard, BootstrapIcon },
-  props: {},
-  setup() {
-    const { dishes, totalCost, totalCount } = useSelectedDishes();
-    const { addQuantity, reduceQuantity } = useChangeQuantity();
+import { defineAsyncComponent } from "vue";
+const DishCard = defineAsyncComponent(() =>
+  import("@/components/DishCard.vue")
+);
 
-    return { dishes, totalCost, totalCount, addQuantity, reduceQuantity };
+import { useSelectedDishes } from "@/composition/selectedDishes";
+const { dishes, totalCost } = useSelectedDishes();
+
+import { useChangeQuantity } from "@/composition/changeQuantity";
+const { addQuantity, reduceQuantity } = useChangeQuantity();
+
+const styles = {
+  body: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "90%",
   },
-  data() {
-    return {
-      styles: {
-        body: {
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "90%",
-        },
-        dish: {
-          position: "relative",
-          width: "100%",
-          height: "70px",
-          marginTop: "1px",
-          background: "#eaebee",
-        },
-        img: {
-          position: "absolute",
-          left: "10px",
-          top: "7px",
-          width: "30px",
-          height: "30px",
-          objectFit: "cover",
-        },
-      },
-    };
+  dish: {
+    position: "relative",
+    width: "100%",
+    height: "70px",
+    marginTop: "1px",
+    background: "#eaebee",
   },
-  computed: {},
-  methods: {},
-});
+  img: {
+    position: "absolute",
+    left: "10px",
+    top: "7px",
+    width: "30px",
+    height: "30px",
+    objectFit: "cover",
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,35 +1,30 @@
 <template>
   <div class="restaurants">
-    <RestaurantCard
-      v-for="restaurant in restaurantsStore.restaurants"
-      :key="restaurant.id"
-      @click="showDishes(restaurant)"
-      :photo-name="restaurant.photoName"
-    >
-      <div class="restaurants__name">{{ restaurant.name }}</div>
-    </RestaurantCard>
+    <Suspense>
+      <RestaurantCard
+        v-for="restaurant in restaurantsStore.restaurants"
+        :key="restaurant.id"
+        @click="showDishes(restaurant)"
+        :photo-name="restaurant.photoName"
+      >
+        <div class="restaurants__name">{{ restaurant.name }}</div>
+      </RestaurantCard>
+      <template #fallback> Loading... </template>
+    </Suspense>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup>
+import { defineAsyncComponent } from "vue";
+const RestaurantCard = defineAsyncComponent(() =>
+  import("@/components/RestaurantCard.vue")
+);
+
 import { useRestaurantsStore } from "@/store/restaurants";
+const restaurantsStore = useRestaurantsStore();
+
 import { useCurrentRestaurant } from "@/composition/currentRestaurant";
-import RestaurantCard from "@/components/RestaurantCard.vue";
-
-export default defineComponent({
-  name: "RestaurantView",
-  components: { RestaurantCard },
-  setup() {
-    const restaurantsStore = useRestaurantsStore();
-    const { showDishes } = useCurrentRestaurant();
-
-    return {
-      restaurantsStore,
-      showDishes,
-    };
-  },
-});
+const { showDishes } = useCurrentRestaurant();
 </script>
 
 <style lang="scss" scoped>

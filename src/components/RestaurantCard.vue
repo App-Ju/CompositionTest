@@ -1,28 +1,21 @@
 <template>
   <div class="restaurant">
     <slot class="restaurant__name" />
-    <img :src="requestPhoto" alt="#" class="restaurant__img" />
+    <img :src="photo" alt="#" class="restaurant__img" />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useGetPhoto } from "@/composition/getPhoto";
-
-export default defineComponent({
-  name: "CardComponent",
-  props: {
-    photoName: {
-      type: String,
-      require: true,
-    },
-  },
-  setup(props) {
-    const { requestPhoto } = useGetPhoto(props.photoName!);
-
-    return { requestPhoto };
+<script setup>
+const props = defineProps({
+  photoName: {
+    type: String,
+    require: true,
   },
 });
+
+import { getPhoto } from "@/api/unsplashAPI";
+const requestPhoto = await getPhoto(props.photoName);
+const photo = requestPhoto.data.results[0].urls.regular;
 </script>
 
 <style lang="scss" scoped>

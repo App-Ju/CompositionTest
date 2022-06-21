@@ -1,29 +1,18 @@
 <template>
   <nav class="nav">
     <router-link to="/">Все Рестораны</router-link>
-    <router-link to="/order/restaurantId" class="nav__cart">
+    <div class="nav__cart">
       <BootstrapIcon id="nav-cart" icon="cart4" />
       <div v-if="totalCount" class="nav__cart-count">{{ totalCount }}</div>
-    </router-link>
+    </div>
   </nav>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup>
 import BootstrapIcon from "@dvuckovic/vue3-bootstrap-icons";
 import { useSelectedDishes } from "@/composition/selectedDishes";
-import { useCurrentRestaurant } from "@/composition/currentRestaurant";
 
-export default defineComponent({
-  name: "HeaderComponent",
-  components: { BootstrapIcon },
-  setup() {
-    const { totalCount } = useSelectedDishes();
-    const { restaurantId } = useCurrentRestaurant();
-
-    return { totalCount, restaurantId };
-  },
-});
+const { totalCount } = useSelectedDishes();
 </script>
 
 <style lang="scss" scoped>
@@ -40,10 +29,13 @@ export default defineComponent({
 
   &__cart-count {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     right: -2px;
     bottom: 0;
-    width: 12px;
-    height: 12px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     font-size: 12px;
     background-color: #57b750;
@@ -61,7 +53,7 @@ export default defineComponent({
 }
 
 #nav-cart {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
 }
 </style>

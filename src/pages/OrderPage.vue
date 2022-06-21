@@ -5,29 +5,9 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useRestaurantsStore } from "@/store/restaurants";
+<script setup>
 import ShoppingCartView from "@/views/ShoppingCartView.vue";
 import DishesView from "@/views/DishesView.vue";
-
-export default defineComponent({
-  name: "OrderPage",
-  components: { DishesView, ShoppingCartView },
-  setup() {
-    const restaurantsStore = useRestaurantsStore();
-
-    return {
-      restaurantsStore,
-    };
-  },
-  props: {},
-  data() {
-    return {};
-  },
-  computed: {},
-  methods: {},
-});
 </script>
 
 <style lang="scss" scoped>
