@@ -1,6 +1,6 @@
 <template>
   <div :style="styles.dish" @mouseenter="onVisible" @mouseleave="offVisible">
-    <img :src="photo" alt="#" :style="styles.img" />
+    <Photo :photo-name="photoName" :style="styles.img" />
     <div :style="styles.body">
       <slot name="name" />
       <div v-show="isVisible" style="z-index: 1000">
@@ -32,9 +32,14 @@ const props = defineProps({
   },
 });
 
-import { getPhoto } from "@/api/unsplashAPI";
-const requestPhoto = await getPhoto(props.photoName);
-const photo = requestPhoto.data.results[0].urls.regular;
+import { defineAsyncComponent } from "vue";
+const Photo = defineAsyncComponent({
+  loader: () => import("@/components/PhotoLoader"),
+  loadingComponent: () => import("@/components/LoadingComponent"),
+  delay: 200,
+  errorComponent: () => import("@/components/ErrorComponent"),
+  timeout: 3000,
+});
 
 import { useShowContent } from "@/composition/showContent";
 const { isVisible, onVisible, offVisible } = useShowContent();

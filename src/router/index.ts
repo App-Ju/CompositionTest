@@ -8,6 +8,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "restaurant",
     component: RestaurantView,
+    beforeEnter: (to, from) => {
+      const restaurantsStore = useRestaurantsStore();
+      restaurantsStore.currentRestaurantDishes.forEach(
+        (el) => (el.quantityInCart = 0)
+      );
+    },
   },
   {
     path: "/order/:id",
@@ -27,4 +33,9 @@ const router = createRouter({
   routes,
 });
 
+// router.beforeEach((to, from) => {
+//   // ...
+//   // explicitly return false to cancel the navigation
+//   return false;
+// });
 export default router;

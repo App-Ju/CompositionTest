@@ -1,7 +1,7 @@
 <template>
   <div class="restaurant">
     <slot class="restaurant__name" />
-    <img :src="photo" alt="#" class="restaurant__img" />
+    <Photo class="restaurant__img" :photo-name="photoName" />
   </div>
 </template>
 
@@ -13,9 +13,14 @@ const props = defineProps({
   },
 });
 
-import { getPhoto } from "@/api/unsplashAPI";
-const requestPhoto = await getPhoto(props.photoName);
-const photo = requestPhoto.data.results[0].urls.regular;
+import { defineAsyncComponent } from "vue";
+const Photo = defineAsyncComponent({
+  loader: () => import("@/components/PhotoLoader"),
+  loadingComponent: () => import("@/components/LoadingComponent"),
+  delay: 200,
+  errorComponent: () => import("@/components/ErrorComponent"),
+  timeout: 3000,
+});
 </script>
 
 <style lang="scss" scoped>
@@ -25,7 +30,7 @@ const photo = requestPhoto.data.results[0].urls.regular;
   position: relative;
   min-width: 200px;
   width: calc(100% / 3 - (#{$margin} + #{$padding}) * 2);
-  height: 100px;
+  height: 150px;
   margin: $margin;
   padding: $padding;
   border-radius: $border-radius;

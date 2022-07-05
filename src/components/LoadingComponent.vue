@@ -1,0 +1,3 @@
+<template>
+  <img src="@/assets/img/loading.gif" alt="#" />
+</template>
